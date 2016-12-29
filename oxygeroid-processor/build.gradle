@@ -1,0 +1,75 @@
+plugins {
+    id "com.jfrog.bintray" version "1.7.3"
+} // plugins
+
+apply plugin: 'java'
+
+version = rootProject.ext.processorVersion
+
+//noinspection GroovyUnusedAssignment
+sourceCompatibility = "1.7"
+//noinspection GroovyUnusedAssignment
+targetCompatibility = "1.7"
+
+
+ext {
+    javapoet = '1.8.0'
+    jdom = '2.0.2'
+    lombok = '1.16.10'
+} // ext
+
+jar {
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    archiveName  "oxygeroid-processor-${rootProject.ext.processorVersion}.jar"
+} // fatJar
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier 'sources'
+    from sourceSets.main.allSource
+} // sourceJar
+
+artifacts {
+    archives sourcesJar
+} // artifacts
+
+assemble.dependsOn 'sourcesJar'
+
+dependencies {
+    compile "com.squareup:javapoet:${project.ext.javapoet}"
+    compile "org.jdom:jdom:${project.ext.jdom}"
+    compileOnly "org.projectlombok:lombok:${project.ext.lombok}"
+    compileOnly project(":oxygeroid-annotations")
+} // dependencies
+
+
+tasks.bintrayUpload.dependsOn 'assemble'
+
+bintray {
+    user = "${rootProject.user}"
+    key = "${rootProject.key}"
+
+    publish = false
+    override = true
+
+    pkg {
+
+        filesSpec {
+            into "com/mallaudin/android/oxygeroid-processor/${rootProject.ext.processorVersion}"
+            from 'build/libs'
+        } // fileSpecs
+
+        repo = "${rootProject.repo}"
+        name = "${rootProject.processorPkg}"
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/mallaudin/bintray-test.git'
+
+        //noinspection GroovyAssignabilityCheck
+        version {
+            name = "${rootProject.ext.processorVersion}"
+            released  = new Date()
+            vcsTag = '1.0.0'
+        } // version
+
+    } // pkg
+
+} // bintray

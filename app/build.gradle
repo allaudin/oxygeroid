@@ -1,0 +1,44 @@
+apply plugin: 'com.android.application'
+
+ext {
+    compileSdk = 25
+    buildTools = '25.0.1'
+    minSdk = 14
+    targetSdk = 25
+    supportLib = '25.1.0'
+} // ext
+
+android {
+    compileSdkVersion project.ext.compileSdk
+    buildToolsVersion project.ext.buildTools
+
+    defaultConfig {
+        applicationId "com.mallaudin.oxygeroidapp"
+        minSdkVersion project.ext.minSdk
+        targetSdkVersion project.ext.targetSdk
+        versionCode 1
+        versionName "1.0"
+    } // defaultConfig
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    } // buildTypes
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    return void
+} // android
+
+
+
+dependencies {
+    provided project(':oxygeroid-annotations')
+    annotationProcessor project(':oxygeroid-processor')
+    compile "com.android.support:appcompat-v7:${project.ext.supportLib}"
+} // dependencies

@@ -47,13 +47,13 @@ bintray {
         repo = "${rootProject.repo}"
         name = "${rootProject.annoPkg}"
         licenses = ['Apache-2.0']
-        vcsUrl = 'https://github.com/mallaudin/bintray-test.git'
+//        vcsUrl = 'https://github.com/mallaudin/bintray-test.git'
 
         //noinspection GroovyAssignabilityCheck
         version {
             name = "${rootProject.ext.processorVersion}"
             released  = new Date()
-            vcsTag = '1.0.0'
+            vcsTag = "${rootProject.ext.processorVersion}"
         } // version
 
     } // pkg

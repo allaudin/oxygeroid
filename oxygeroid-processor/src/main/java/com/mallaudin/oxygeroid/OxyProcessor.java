@@ -131,7 +131,7 @@ public class OxyProcessor extends AbstractProcessor {
 
     private boolean writeToFiler(Element element, TypeSpec typeSpec) {
         try {
-            JavaFile.builder("com.mallaudin.water", typeSpec).build().writeTo(processingEnv.getFiler());
+            JavaFile.builder("com.mallaudin.oxygeroid", typeSpec).build().writeTo(processingEnv.getFiler());
         } catch (IOException e) {
             printError(element, "%s", e.getMessage());
             return true;

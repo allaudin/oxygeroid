@@ -37,7 +37,6 @@ assemble.dependsOn 'sourcesJar'
 dependencies {
     compile "com.squareup:javapoet:${project.ext.javapoet}"
     compile "org.jdom:jdom:${project.ext.jdom}"
-    compileOnly "org.projectlombok:lombok:${project.ext.lombok}"
     compileOnly project(":oxygeroid-annotations")
 } // dependencies
 

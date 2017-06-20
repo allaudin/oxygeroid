@@ -1,8 +1,5 @@
 package com.mallaudin.oxygeroid.model;
 
-import lombok.Builder;
-import lombok.Getter;
-
 /**
  * <p>ViewModel is simple class which represents data parsed from a
  * single xml element and stores it in plain text.</p>
@@ -13,8 +10,6 @@ import lombok.Getter;
  *          Created on 2016-12-25 12:06.
  */
 
-@Getter
-@Builder
 public class ViewModel {
 
     /**
@@ -49,4 +44,35 @@ public class ViewModel {
         return type.equals("fragment");
     } // isFragment
 
+    public String getId() {
+        return id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
+    }
 } // ViewModel

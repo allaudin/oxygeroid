@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/OxygeroidProcessor.iml" filepath="$PROJECT_DIR$/OxygeroidProcessor.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oxygeroid.iml" filepath="$PROJECT_DIR$/oxygeroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/oxygeroid-annotations/oxygeroid-annotations.iml" filepath="$PROJECT_DIR$/oxygeroid-annotations/oxygeroid-annotations.iml" />
       <module fileurl="file://$PROJECT_DIR$/oxygeroid-processor/oxygeroid-processor.iml" filepath="$PROJECT_DIR$/oxygeroid-processor/oxygeroid-processor.iml" />
     </modules>

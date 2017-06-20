@@ -20,7 +20,7 @@ public class NodeParser {
 
     private List<ViewModel> viewModels;
 
-    private NodeParser(){
+    private NodeParser() {
         viewModels = new ArrayList<>();
     } // NodeParser
 
@@ -28,9 +28,9 @@ public class NodeParser {
         return new NodeParser();
     } // newInstance
 
-    public List<ViewModel> parse(NodeList nodeList){
+    public List<ViewModel> parse(NodeList nodeList) {
 
-        for(int i = 0, len = nodeList.getLength(); i < len; i++){
+        for (int i = 0, len = nodeList.getLength(); i < len; i++) {
             parseNode(nodeList.item(i));
         }
 
@@ -39,23 +39,24 @@ public class NodeParser {
 
     private void parseNode(Node node) {
 
-        if(node.hasChildNodes()){
+        if (node.hasChildNodes()) {
             NodeList nl = node.getChildNodes();
-            for(int i = 0; i < nl.getLength(); i++){
+            for (int i = 0; i < nl.getLength(); i++) {
                 parseNode(nl.item(i));
             }
         } // end if
 
-        if(node.hasAttributes() && node.getAttributes().getNamedItem("android:id") != null){
+        if (node.hasAttributes() && node.getAttributes().getNamedItem("android:id") != null) {
             final String value = node.getAttributes().getNamedItem("android:id").getNodeValue();
-            ViewModel.ViewModelBuilder builder = ViewModel.builder();
-
+            ViewModel viewModel = new ViewModel();
             String pkgName = Utils.extractPackage(node.getNodeName());
             String xmlId = Utils.extractIdFromAndroidId(value);
-            builder.packageName(pkgName.length() > 0? pkgName: "android.widget")
-                    .id(xmlId).name(Utils.getNameFromId(xmlId)).type(Utils.getSimpleNameFromXmlView(node.getNodeName()));
-            ViewModel viewModel = builder.build();
-            if(!viewModel.isFragment()){
+            viewModel.setPackageName(pkgName.length() > 0 ? pkgName : "android.widget");
+            viewModel.setId(xmlId);
+            viewModel.setName(Utils.getNameFromId(xmlId));
+            viewModel.setType(Utils.getSimpleNameFromXmlView(node.getNodeName()));
+
+            if (!viewModel.isFragment()) {
                 viewModels.add(viewModel);
             }
         } // end if

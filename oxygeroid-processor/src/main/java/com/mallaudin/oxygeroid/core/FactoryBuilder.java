@@ -11,21 +11,23 @@ import java.util.List;
 
 import javax.lang.model.element.Modifier;
 
-import lombok.Builder;
-import lombok.Getter;
-
 /**
  * Created on 2016-12-25 12:00.
  *
  * @author M.Allaudin
  */
-@Getter
-@Builder
+
 public class FactoryBuilder {
 
     private String factoryName;
     private ClassName rootClass;
     private ClassName resourceClass;
+
+    public FactoryBuilder(String factoryName, ClassName rootClass, ClassName resourceClass) {
+        this.factoryName = factoryName;
+        this.rootClass = rootClass;
+        this.resourceClass = resourceClass;
+    }
 
     private MethodSpec getFactoryMethod(){
         return  MethodSpec.methodBuilder("newInstance")
@@ -69,4 +71,15 @@ public class FactoryBuilder {
                 .build();
     } // generate
 
+    public String getFactoryName() {
+        return factoryName;
+    }
+
+    public ClassName getRootClass() {
+        return rootClass;
+    }
+
+    public ClassName getResourceClass() {
+        return resourceClass;
+    }
 } // FactoryBuilder

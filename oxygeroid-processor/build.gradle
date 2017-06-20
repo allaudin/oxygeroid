@@ -47,7 +47,7 @@ bintray {
     user = "${rootProject.user}"
     key = "${rootProject.key}"
 
-    publish = false
+    publish = true
     override = true
 
     pkg {

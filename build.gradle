@@ -19,7 +19,7 @@ task clean(type: Delete) {
 } // clean
 
 ext {
-    processorVersion = '1.0.1'
+    processorVersion = '1.0.2'
     repo = 'android'
     processorPkg = 'oxygeroid-processor'
     annoPkg = 'oxygeroid-annotations'

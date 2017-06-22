@@ -46,10 +46,14 @@ public class ViewModel {
 
     public boolean isInclude() {
         return type.equals("fragment");
-    } // isFragment
+    }
+
+    public boolean isMerge() {
+        return type.equals("merge");
+    }
 
     public boolean shouldInclude() {
-        return !isFragment() && !isInclude();
+        return !isFragment() && !isInclude() && !isMerge();
     }
 
     public String getId() {

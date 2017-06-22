@@ -56,7 +56,7 @@ public class NodeParser {
             viewModel.setName(Utils.getNameFromId(xmlId));
             viewModel.setType(Utils.getSimpleNameFromXmlView(node.getNodeName()));
 
-            if (!viewModel.isFragment()) {
+            if (viewModel.shouldInclude()) {
                 viewModels.add(viewModel);
             }
         } // end if

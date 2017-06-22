@@ -6,7 +6,7 @@ package com.mallaudin.oxygeroid.model;
  *
  * @author M.Allaudin
  * @version 1.0
- *
+ *          <p>
  *          Created on 2016-12-25 12:06.
  */
 
@@ -40,9 +40,17 @@ public class ViewModel {
     private String packageName;
 
 
-    public boolean isFragment(){
+    public boolean isFragment() {
         return type.equals("fragment");
     } // isFragment
+
+    public boolean isInclude() {
+        return type.equals("fragment");
+    } // isFragment
+
+    public boolean shouldInclude() {
+        return !isFragment() && !isInclude();
+    }
 
     public String getId() {
         return id;

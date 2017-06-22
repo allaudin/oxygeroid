@@ -28,5 +28,5 @@ ext {
 } // ext
 
 
-task bintrayPublish (dependsOn: [':oxygeroid:bintrayUpload',':oxygeroid-annotations:bintrayUpload' ]) {
+task bintrayPublish (dependsOn: [':oxygeroid-processor:bintrayUpload',':oxygeroid-annotations:bintrayUpload' ]) {
 } // bintrayPublish

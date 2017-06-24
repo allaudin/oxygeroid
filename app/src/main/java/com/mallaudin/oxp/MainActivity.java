@@ -20,9 +20,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MainActivityViews
 
-//        MainActivityViews.newInstance(this).
+
+        MainActivityViews.newInstance(this);
 
     } // onCreate
 

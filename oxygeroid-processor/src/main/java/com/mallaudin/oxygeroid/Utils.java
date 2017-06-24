@@ -19,6 +19,9 @@ public class Utils {
     } // isEmpty
 
     public static String extractPackage(String qualifiedName){
+        if(qualifiedName.equals("View")){
+            return "android.view";
+        }
         return qualifiedName.contains(".")? qualifiedName.substring(0, qualifiedName.lastIndexOf(".")): "";
     } // extractPackage
 

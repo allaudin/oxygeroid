@@ -19,13 +19,15 @@ import java.util.List;
 public class NodeParser {
 
     private List<ViewModel> viewModels;
+    private String module;
 
-    private NodeParser() {
+    private NodeParser(String module) {
+        this.module = module;
         viewModels = new ArrayList<>();
     } // NodeParser
 
-    public static NodeParser newInstance() {
-        return new NodeParser();
+    public static NodeParser newInstance(String module) {
+        return new NodeParser(module);
     } // newInstance
 
     public List<ViewModel> parse(NodeList nodeList) {
@@ -50,7 +52,7 @@ public class NodeParser {
             String xmlPath = node.getAttributes().getNamedItem("layout").getNodeValue();
             int lastIndex = xmlPath.lastIndexOf("/");
             xmlPath = xmlPath.substring(lastIndex + 1);
-            NodeList nodeList = new LayoutBuilder(xmlPath).getNodeList();
+            NodeList nodeList = new LayoutBuilder(module, xmlPath).getNodeList();
             parse(nodeList);
         } else if (node.hasAttributes() && node.getAttributes().getNamedItem("android:id") != null) {
             final String value = node.getAttributes().getNamedItem("android:id").getNodeValue();

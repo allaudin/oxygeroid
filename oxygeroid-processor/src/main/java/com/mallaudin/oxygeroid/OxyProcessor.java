@@ -5,17 +5,15 @@ import com.mallaudin.annotations.FactoryType;
 import com.mallaudin.annotations.ResourcePackage;
 import com.mallaudin.annotations.ViewFactory;
 import com.mallaudin.oxygeroid.core.FactoryBuilder;
+import com.mallaudin.oxygeroid.core.LayoutBuilder;
 import com.mallaudin.oxygeroid.core.NodeParser;
 import com.mallaudin.oxygeroid.model.ViewModel;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
 
-import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -27,9 +25,6 @@ import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 /**
  * Created on 2016-12-24 12:58.
@@ -98,21 +93,8 @@ public class OxyProcessor extends AbstractProcessor {
         ClassName rootClass = ClassName.get(rootPackage, rootName);
         ClassName resourceClass = ClassName.get(resourcePackage, "R");
 
-        String xmlFileName = String.format("./%s/src/main/res/layout/%s.xml", module, layoutFile);
-
-        DocumentBuilderFactory instance = DocumentBuilderFactory.newInstance();
-        Document document;
-
-        try {
-            DocumentBuilder builder = instance.newDocumentBuilder();
-            document = builder.parse(new File(xmlFileName));
-        } catch (ParserConfigurationException | SAXException | IOException e) {
-            printError(element, "%s", e.getMessage());
-            return true;
-        }
-
-        NodeList nodeList = document.getDocumentElement().getChildNodes();
-        List<ViewModel> viewModels = NodeParser.newInstance().parse(nodeList);
+        NodeList nodeList = new LayoutBuilder(module, layoutFile).getNodeList();
+        List<ViewModel> viewModels = NodeParser.newInstance(module).parse(nodeList);
 
         String factoryClassName;
         if (Utils.isEmpty(anno.className())) {

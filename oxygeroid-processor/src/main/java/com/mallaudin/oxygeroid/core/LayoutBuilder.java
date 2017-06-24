@@ -21,8 +21,8 @@ public class LayoutBuilder {
 
     private String layoutPath;
 
-    public LayoutBuilder(String layoutPath) {
-        this.layoutPath = String.format("./%s/src/main/res/layout/%s.xml", "app", layoutPath);
+    public LayoutBuilder(String module, String layoutPath) {
+        this.layoutPath = String.format("./%s/src/main/res/layout/%s.xml", module, layoutPath);
     }
 
     public NodeList getNodeList() {

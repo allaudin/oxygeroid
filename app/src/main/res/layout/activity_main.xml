@@ -10,17 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.mallaudin.oxp.MainActivity">
 
-    <TextView
-        android:id="@+id/test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
-
-    <Button
-        android:id="@+id/my_button"
-        android:tag="some"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
     <include layout="@layout/test" />
 

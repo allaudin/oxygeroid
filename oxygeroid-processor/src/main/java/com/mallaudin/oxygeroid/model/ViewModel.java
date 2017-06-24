@@ -45,7 +45,7 @@ public class ViewModel {
     } // isFragment
 
     public boolean isInclude() {
-        return type.equals("fragment");
+        return type.equals("include");
     }
 
     public boolean isMerge() {

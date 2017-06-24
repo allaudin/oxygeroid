@@ -71,15 +71,5 @@ public class FactoryBuilder {
                 .build();
     } // generate
 
-    public String getFactoryName() {
-        return factoryName;
-    }
 
-    public ClassName getRootClass() {
-        return rootClass;
-    }
-
-    public ClassName getResourceClass() {
-        return resourceClass;
-    }
 } // FactoryBuilder

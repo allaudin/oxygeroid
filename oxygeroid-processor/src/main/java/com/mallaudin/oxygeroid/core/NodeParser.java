@@ -46,7 +46,13 @@ public class NodeParser {
             }
         } // end if
 
-        if (node.hasAttributes() && node.getAttributes().getNamedItem("android:id") != null) {
+        if (node.hasAttributes() && node.getAttributes().getNamedItem("layout") != null) {
+            String xmlPath = node.getAttributes().getNamedItem("layout").getNodeValue();
+            int lastIndex = xmlPath.lastIndexOf("/");
+            xmlPath = xmlPath.substring(lastIndex + 1);
+            NodeList nodeList = new LayoutBuilder(xmlPath).getNodeList();
+            parse(nodeList);
+        } else if (node.hasAttributes() && node.getAttributes().getNamedItem("android:id") != null) {
             final String value = node.getAttributes().getNamedItem("android:id").getNodeValue();
             ViewModel viewModel = new ViewModel();
             String pkgName = Utils.extractPackage(node.getNodeName());

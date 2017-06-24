@@ -7,6 +7,8 @@ import android.view.View;
 import com.mallaudin.annotations.ResourcePackage;
 import com.mallaudin.annotations.ViewFactory;
 
+import io.github.allaudin.oxygeroid.MainActivityViews;
+
 
 @ResourcePackage("com.mallaudin.oxp")
 @ViewFactory(value = "activity_main")
@@ -17,6 +19,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        MainActivityViews
 
 //        MainActivityViews.newInstance(this).
 

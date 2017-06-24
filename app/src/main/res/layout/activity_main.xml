@@ -11,6 +11,8 @@
     tools:context="com.mallaudin.oxp.MainActivity">
 
 
+    <include layout="@layout/inner" />
+
     <include layout="@layout/test" />
 
 </RelativeLayout>

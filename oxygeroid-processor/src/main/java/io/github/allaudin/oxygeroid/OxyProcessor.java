@@ -1,13 +1,13 @@
-package com.mallaudin.oxygeroid;
+package io.github.allaudin.oxygeroid;
 
 
-import com.mallaudin.annotations.FactoryType;
-import com.mallaudin.annotations.ResourcePackage;
-import com.mallaudin.annotations.ViewFactory;
-import com.mallaudin.oxygeroid.core.FactoryBuilder;
-import com.mallaudin.oxygeroid.core.LayoutBuilder;
-import com.mallaudin.oxygeroid.core.NodeParser;
-import com.mallaudin.oxygeroid.model.ViewModel;
+import io.github.allaudin.annotations.FactoryType;
+import io.github.allaudin.annotations.OxyConfig;
+import io.github.allaudin.annotations.OxyViews;
+import io.github.allaudin.oxygeroid.core.FactoryBuilder;
+import io.github.allaudin.oxygeroid.core.LayoutBuilder;
+import io.github.allaudin.oxygeroid.core.NodeParser;
+import io.github.allaudin.oxygeroid.model.ViewModel;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
@@ -46,26 +46,26 @@ public class OxyProcessor extends AbstractProcessor {
         }
 
 
-        for (Element e : roundEnv.getElementsAnnotatedWith(ResourcePackage.class)) {
-            ResourcePackage anno = e.getAnnotation(ResourcePackage.class);
+        for (Element e : roundEnv.getElementsAnnotatedWith(OxyConfig.class)) {
+            OxyConfig anno = e.getAnnotation(OxyConfig.class);
 
-            resourcePackage = anno.value();
+            resourcePackage = anno.resourcePackage();
             module = anno.module();
 
             if (Utils.isEmpty(resourcePackage)) {
-                printError(e, "%s can not be empty.", ResourcePackage.class.getSimpleName());
+                printError(e, "%s can not be empty.", OxyConfig.class.getSimpleName());
                 return false;
             }
+
         } // end for
 
 
-        for (Element e : roundEnv.getElementsAnnotatedWith(ViewFactory.class)) {
-            ViewFactory anno = e.getAnnotation(ViewFactory.class);
+        for (Element e : roundEnv.getElementsAnnotatedWith(OxyViews.class)) {
+            OxyViews anno = e.getAnnotation(OxyViews.class);
             String layoutFile = anno.value();
 
             if (Utils.isEmpty(layoutFile)) {
-
-                printError(e, "%s can not be empty.", ResourcePackage.class.getSimpleName());
+                printError(e, "%s can not be empty.", OxyConfig.class.getSimpleName());
                 return false;
             }
             generateViewFactoryClass(e, anno);
@@ -75,7 +75,7 @@ public class OxyProcessor extends AbstractProcessor {
         return false;
     } // process
 
-    private boolean generateViewFactoryClass(Element element, ViewFactory anno) {
+    private boolean generateViewFactoryClass(Element element, OxyViews anno) {
 
         String rootName, rootPackage;
 
@@ -124,8 +124,8 @@ public class OxyProcessor extends AbstractProcessor {
     @Override
     public Set<String> getSupportedAnnotationTypes() {
         final Set<String> annoSet = new LinkedHashSet<>();
-        annoSet.add(ResourcePackage.class.getCanonicalName());
-        annoSet.add(ViewFactory.class.getCanonicalName());
+        annoSet.add(OxyConfig.class.getCanonicalName());
+        annoSet.add(OxyViews.class.getCanonicalName());
         return annoSet;
     } // getSupportedAnnotationTypes
 

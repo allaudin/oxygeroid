@@ -1,4 +1,4 @@
-package com.mallaudin.oxygeroid.core;
+package io.github.allaudin.oxygeroid.core;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;

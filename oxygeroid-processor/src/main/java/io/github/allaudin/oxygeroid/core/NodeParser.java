@@ -1,8 +1,8 @@
-package com.mallaudin.oxygeroid.core;
+package io.github.allaudin.oxygeroid.core;
 
 
-import com.mallaudin.oxygeroid.Utils;
-import com.mallaudin.oxygeroid.model.ViewModel;
+import io.github.allaudin.oxygeroid.Utils;
+import io.github.allaudin.oxygeroid.model.ViewModel;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;

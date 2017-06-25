@@ -1,4 +1,4 @@
-package com.mallaudin.oxygeroid.model;
+package io.github.allaudin.oxygeroid.model;
 
 /**
  * <p>ViewModel is simple class which represents data parsed from a

@@ -1,4 +1,4 @@
-package com.mallaudin.oxygeroid;
+package io.github.allaudin.oxygeroid;
 
 /**
  * Created on 2016-12-25 12:09.

@@ -1,6 +1,6 @@
-package com.mallaudin.oxygeroid.core;
+package io.github.allaudin.oxygeroid.core;
 
-import com.mallaudin.oxygeroid.model.ViewModel;
+import io.github.allaudin.oxygeroid.model.ViewModel;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;

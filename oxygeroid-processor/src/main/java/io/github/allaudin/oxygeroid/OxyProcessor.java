@@ -1,13 +1,6 @@
 package io.github.allaudin.oxygeroid;
 
 
-import io.github.allaudin.annotations.FactoryType;
-import io.github.allaudin.annotations.OxyConfig;
-import io.github.allaudin.annotations.OxyViews;
-import io.github.allaudin.oxygeroid.core.FactoryBuilder;
-import io.github.allaudin.oxygeroid.core.LayoutBuilder;
-import io.github.allaudin.oxygeroid.core.NodeParser;
-import io.github.allaudin.oxygeroid.model.ViewModel;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
@@ -25,6 +18,14 @@ import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
+
+import io.github.allaudin.annotations.FactoryType;
+import io.github.allaudin.annotations.OxyConfig;
+import io.github.allaudin.annotations.OxyViews;
+import io.github.allaudin.oxygeroid.core.FactoryBuilder;
+import io.github.allaudin.oxygeroid.core.LayoutBuilder;
+import io.github.allaudin.oxygeroid.core.NodeParser;
+import io.github.allaudin.oxygeroid.model.ViewModel;
 
 /**
  * Created on 2016-12-24 12:58.

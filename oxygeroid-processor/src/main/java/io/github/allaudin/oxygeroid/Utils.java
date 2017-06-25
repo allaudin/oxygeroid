@@ -14,7 +14,7 @@ public class Utils {
         return firstLetter + word.substring(1);
     } // capitalizeWord
 
-    public static boolean isEmpty(String string){
+    static boolean isEmpty(String string){
         return string.trim().length() == 0;
     } // isEmpty
 

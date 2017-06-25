@@ -1,14 +1,14 @@
 package io.github.allaudin.oxygeroid.core;
 
 
-import io.github.allaudin.oxygeroid.Utils;
-import io.github.allaudin.oxygeroid.model.ViewModel;
-
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.github.allaudin.oxygeroid.Utils;
+import io.github.allaudin.oxygeroid.model.ViewModel;
 
 /**
  * Created on 2016-12-25 12:23.
@@ -64,9 +64,14 @@ public class NodeParser {
             viewModel.setName(Utils.getNameFromId(xmlId));
             viewModel.setType(Utils.getSimpleNameFromXmlView(node.getNodeName()));
 
-            if (viewModel.shouldInclude()) {
+            //node.getNodeType() == Node.COMMENT_NODE && node.getNodeValue().equals("oxyskip")
+            // if tag = oxyskip, skip generation of this view
+            Node tag = node.getAttributes().getNamedItem("android:tag");
+            boolean skipped = tag != null && tag.getNodeValue().equals("oxyskip");
+            if (!skipped && viewModel.shouldInclude()) {
                 viewModels.add(viewModel);
             }
+
         } // end if
 
     } // parseNode

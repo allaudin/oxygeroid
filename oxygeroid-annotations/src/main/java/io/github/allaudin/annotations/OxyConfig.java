@@ -29,12 +29,5 @@ public @interface OxyConfig {
      */
     String module() default "app";
 
-    /**
-     * Layout directory path.
-     * <p>
-     * If specified, this path will take precedence over any other configuration
-     *
-     * @return layout directory path relative to root project directory
-     */
-    String layouts() default "";
+
 } // OxyConfig

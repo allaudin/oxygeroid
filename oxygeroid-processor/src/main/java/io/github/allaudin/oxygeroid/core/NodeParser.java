@@ -64,7 +64,6 @@ public class NodeParser {
             viewModel.setName(Utils.getNameFromId(xmlId));
             viewModel.setType(Utils.getSimpleNameFromXmlView(node.getNodeName()));
 
-            //node.getNodeType() == Node.COMMENT_NODE && node.getNodeValue().equals("oxyskip")
             // if tag = oxyskip, skip generation of this view
             Node tag = node.getAttributes().getNamedItem("android:tag");
             boolean skipped = tag != null && tag.getNodeValue().equals("oxyskip");

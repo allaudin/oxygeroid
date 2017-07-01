@@ -3,6 +3,7 @@ plugins {
 } // plugins
 
 apply plugin: 'java'
+apply plugin: 'maven'
 
 version = rootProject.ext.processorVersion
 
@@ -53,7 +54,8 @@ bintray {
     pkg {
 
         filesSpec {
-            into "com/mallaudin/android/oxygeroid-processor/${rootProject.ext.processorVersion}"
+//            into "com/mallaudin/android/oxygeroid-processor/${rootProject.ext.processorVersion}"
+            into "."
             from 'build/libs'
         } // fileSpecs
 
@@ -72,3 +74,42 @@ bintray {
     } // pkg
 
 } // bintray
+
+
+def groupId = "com.mallaudin.android"
+def artifactId = "oxygeroid-processor"
+def version = "1.0.0"
+
+def localReleaseDest = "${buildDir}/libs/"
+
+
+uploadArchives {
+    repositories.mavenDeployer {
+        pom.groupId = groupId
+        pom.artifactId = artifactId
+        pom.version = version
+        // Add other pom properties here if you want (developer details / licenses)
+        repository(url: "file://${localReleaseDest}")
+    }
+}
+
+task zipRelease(type: Zip) {
+    from localReleaseDest
+    destinationDir buildDir
+    archiveName "release-${version}.zip"
+}
+
+task generateRelease << {
+    println "Release ${version} can be found at ${localReleaseDest}/"
+    println "Release ${version} zipped can be found ${buildDir}/release-${version}.zip"
+}
+
+generateRelease.dependsOn(uploadArchives)
+generateRelease.dependsOn(zipRelease)
+
+/*
+artifacts {
+    archives androidSourcesJar
+    archives androidJavadocsJar
+}
+*/

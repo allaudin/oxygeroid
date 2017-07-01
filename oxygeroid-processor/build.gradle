@@ -1,11 +1,11 @@
 plugins {
     id "com.jfrog.bintray" version "1.7.3"
-} // plugins
+}
 
 apply plugin: 'java'
 apply plugin: 'maven'
 
-version = rootProject.ext.processorVersion
+version = rootProject.ext.version
 
 //noinspection GroovyUnusedAssignment
 sourceCompatibility = "1.7"
@@ -16,22 +16,23 @@ targetCompatibility = "1.7"
 ext {
     javapoet = '1.8.0'
     jdom = '2.0.2'
-    lombok = '1.16.10'
-} // ext
+    localReleasePath = "${buildDir}/release"
+}
 
 jar {
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    archiveName  "oxygeroid-processor-${rootProject.ext.processorVersion}.jar"
-} // fatJar
+    archiveName "oxygeroid-processor-${project.version}.jar"
+}
+
 
 task sourcesJar(type: Jar, dependsOn: classes) {
     classifier 'sources'
     from sourceSets.main.allSource
-} // sourceJar
+}
 
 artifacts {
     archives sourcesJar
-} // artifacts
+}
 
 assemble.dependsOn 'sourcesJar'
 
@@ -39,36 +40,37 @@ dependencies {
     compile "com.squareup:javapoet:${project.ext.javapoet}"
     compile "org.jdom:jdom:${project.ext.jdom}"
     compileOnly project(":oxygeroid-annotations")
-} // dependencies
+}
 
 
-tasks.bintrayUpload.dependsOn 'assemble'
+tasks.bintrayUpload.dependsOn 'uploadArchives'
+tasks.uploadArchives.dependsOn 'assemble'
+
 
 bintray {
+
     user = "${rootProject.user}"
     key = "${rootProject.key}"
 
-    publish = true
-    override = true
+    publish = rootProject.ext.publish
+    override = rootProject.ext.override
 
     pkg {
 
         filesSpec {
-//            into "com/mallaudin/android/oxygeroid-processor/${rootProject.ext.processorVersion}"
-            into "."
-            from 'build/libs'
+            into "${rootProject.ext.groupId}/${project.name}/${project.version}"
+            from 'build/release'
         } // fileSpecs
 
         repo = "${rootProject.repo}"
-        name = "${rootProject.processorPkg}"
-        licenses = ['Apache-2.0']
-//        vcsUrl = 'https://github.com/mallaudin/bintray-test.git'
+        name = "${project.name}"
+        licenses = rootProject.ext.licenses
 
         //noinspection GroovyAssignabilityCheck
         version {
-            name = "${rootProject.ext.processorVersion}"
+            name = "${project.version}"
             released  = new Date()
-            vcsTag = "${rootProject.ext.processorVersion}"
+            vcsTag = "${project.version}"
         } // version
 
     } // pkg
@@ -76,40 +78,12 @@ bintray {
 } // bintray
 
 
-def groupId = "com.mallaudin.android"
-def artifactId = "oxygeroid-processor"
-def version = "1.0.0"
-
-def localReleaseDest = "${buildDir}/libs/"
-
-
 uploadArchives {
     repositories.mavenDeployer {
-        pom.groupId = groupId
-        pom.artifactId = artifactId
-        pom.version = version
-        // Add other pom properties here if you want (developer details / licenses)
-        repository(url: "file://${localReleaseDest}")
+        pom.groupId = rootProject.ext.groupId
+        pom.artifactId = project.name
+        pom.version = project.version
+        repository(url: "file://${project.ext.localReleasePath}")
     }
 }
 
-task zipRelease(type: Zip) {
-    from localReleaseDest
-    destinationDir buildDir
-    archiveName "release-${version}.zip"
-}
-
-task generateRelease << {
-    println "Release ${version} can be found at ${localReleaseDest}/"
-    println "Release ${version} zipped can be found ${buildDir}/release-${version}.zip"
-}
-
-generateRelease.dependsOn(uploadArchives)
-generateRelease.dependsOn(zipRelease)
-
-/*
-artifacts {
-    archives androidSourcesJar
-    archives androidJavadocsJar
-}
-*/

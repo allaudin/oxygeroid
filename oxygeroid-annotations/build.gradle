@@ -3,8 +3,9 @@ plugins {
 } // plugins
 
 apply plugin: 'java'
+apply plugin: 'maven'
 
-version = rootProject.ext.processorVersion
+version = rootProject.ext.version
 
 //noinspection GroovyUnusedAssignment
 sourceCompatibility = "1.7"
@@ -25,37 +26,49 @@ assemble.dependsOn 'sourcesJar'
 
 jar {
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    archiveName  "oxygeroid-annotations-${rootProject.ext.processorVersion}.jar"
+    archiveName  "oxygeroid-annotations-${project.version}.jar"
 } // fatJar
 
 tasks.bintrayUpload.dependsOn 'assemble'
 
 bintray {
+
     user = "${rootProject.user}"
     key = "${rootProject.key}"
 
-    publish = true
-    override = true
+    publish = rootProject.ext.publish
+    override = rootProject.ext.override
 
     pkg {
 
         filesSpec {
-            into "com/mallaudin/android/oxygeroid-annotations/${rootProject.ext.processorVersion}"
+            into "${rootProject.ext.groupId}/${project.name}/${project.version}"
             from 'build/libs'
         } // fileSpecs
 
         repo = "${rootProject.repo}"
-        name = "${rootProject.annoPkg}"
-        licenses = ['Apache-2.0']
-//        vcsUrl = 'https://github.com/mallaudin/bintray-test.git'
+        name = "${project.name}"
+        licenses = rootProject.ext.licenses
 
         //noinspection GroovyAssignabilityCheck
         version {
-            name = "${rootProject.ext.processorVersion}"
+            name = "${project.version}"
             released  = new Date()
-            vcsTag = "${rootProject.ext.processorVersion}"
+            vcsTag = "${project.version}"
         } // version
 
     } // pkg
 
 } // bintray
+
+def localReleasePath = "${buildDir}/release"
+
+uploadArchives {
+    repositories.mavenDeployer {
+        pom.groupId = rootProject.ext.groupId
+        pom.artifactId = project.name
+        pom.version = project.version
+        repository(url: "file://${localReleasePath}")
+    }
+}
+

@@ -58,7 +58,7 @@ bintray {
     pkg {
 
         filesSpec {
-            into "${rootProject.ext.groupId}/${project.name}/${project.version}"
+            into "."
             from 'build/release'
         } // fileSpecs
 

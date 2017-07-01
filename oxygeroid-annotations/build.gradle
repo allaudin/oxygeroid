@@ -42,8 +42,8 @@ bintray {
     pkg {
 
         filesSpec {
-            into "${rootProject.ext.groupId}/${project.name}/${project.version}"
-            from 'build/libs'
+            into "."
+            from 'build/release'
         } // fileSpecs
 
         repo = "${rootProject.repo}"

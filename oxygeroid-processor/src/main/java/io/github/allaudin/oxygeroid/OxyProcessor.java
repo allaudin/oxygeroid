@@ -62,6 +62,13 @@ public class OxyProcessor extends AbstractProcessor {
 
 
         for (Element e : roundEnv.getElementsAnnotatedWith(OxyViews.class)) {
+
+            if(resourcePackage == null){
+                printError(e, "You must add %s annotation with resource package specified.", OxyConfig.class.getSimpleName());
+                return false;
+            }
+
+
             OxyViews anno = e.getAnnotation(OxyViews.class);
             String layoutFile = anno.value();
 

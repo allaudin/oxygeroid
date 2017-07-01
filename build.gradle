@@ -25,6 +25,6 @@ ext {
     groupId = "io.github.allaudin"
     licenses = ['Apache-2.0']
     publish = false
-    override = false
+    override = true
     key = '6792bc2dedcffcddfc17bb2123eb67a0a6b54481'
 } // ext

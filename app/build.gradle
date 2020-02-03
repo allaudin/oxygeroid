@@ -38,7 +38,7 @@ android {
 
 
 dependencies {
-    provided project(':oxygeroid-annotations')
+    compile project(':oxygeroid-annotations')
     annotationProcessor project(':oxygeroid-processor')
     compile "com.android.support:appcompat-v7:${project.ext.supportLib}"
 } // dependencies
